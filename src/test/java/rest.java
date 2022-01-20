@@ -45,4 +45,15 @@ public class rest {
                 .body( "data.id",equalTo(5))//
                 .body("data.email",equalTo("charles.morris@reqres.in"));
     }
+    @Test
+    public void getSingleUserTestError(){
+        given()
+                .contentType(ContentType.JSON)
+                .get("https://reqres.in/api/users/5")
+                .then()
+                .statusCode(400)
+                .body( "data.id",equalTo(5))//
+                .body("data.email",equalTo("charles.morris@reqres.in"));
+    }
 }
+
