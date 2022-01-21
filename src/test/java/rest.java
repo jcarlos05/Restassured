@@ -52,7 +52,7 @@ public class rest {
                 .then()
                 .statusCode(200)
                 .body( "data.id",equalTo(2))//
-                .body("data.email",equalTo("charles.morris@reqres.in"));
+                .body("data.email",equalTo("janet.weaver@reqres.in"));
     }
     @Test
     public void getSingleUserTestError(){
@@ -68,7 +68,7 @@ public class rest {
         given()
                 .delete("/users/2")
                 .then()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_NO_CONTENT);
         //HttpStatus.SC_NO_CONTENT
     }
     @Test
@@ -87,7 +87,22 @@ public class rest {
 
         assertThat(nameUpdate, equalTo("morpheus"));
     }
+    @Test
+    public void putUserTest(){
+        String jobUpdate = given()
+                .when()
+                .body("{\n" +
+                        "    \"name\": \"morpheus\",\n" +
+                        "    \"job\": \"zion resident\"\n" +
+                        "}")
+                .put("/users/2")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .jsonPath().getString("name");
 
+        assertThat(jobUpdate, equalTo("zion resident"));
+   }
 }
 
 
